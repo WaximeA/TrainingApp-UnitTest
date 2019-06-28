@@ -11,6 +11,35 @@ class Masterclass
     private $date = null;
 
     /**
+     * Masterclass constructor
+     *
+     * @param string $name
+     * @param string $description
+     * @param int    $capacity
+     * @param User   $teacher
+     * @param array  $students
+     * @param string $place
+     * @param DateTime   $date
+     */
+    public function __construct(
+        string $name,
+        string $description,
+        int $capacity,
+        User $teacher,
+        array $students,
+        string $place,
+        DateTime $date
+    ) {
+        $this->name        = $name;
+        $this->description = $description;
+        $this->capacity    = $capacity;
+        $this->teacher     = $teacher;
+        $this->students    = $students;
+        $this->place       = $place;
+        $this->date        = $date;
+    }
+
+    /**
      * Description getName function
      *
      * @return string
@@ -79,15 +108,15 @@ class Masterclass
     /**
      * Description getTeacher function
      *
-     * @return null
+     * @return User
      */
-    public function getTeacher()
+    public function getTeacher() :User
     {
         return $this->teacher;
     }
 
     /**
-     * @param null $teacher
+     * @param User $teacher
      *
      * @return Masterclass
      */
@@ -153,11 +182,11 @@ class Masterclass
     }
 
     /**
-     * @param null $date
+     * @param DateTime $date
      *
      * @return Masterclass
      */
-    public function setDate($date)
+    public function setDate(DateTime $date)
     {
         $this->date = $date;
 
