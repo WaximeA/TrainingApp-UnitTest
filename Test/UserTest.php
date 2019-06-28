@@ -1,7 +1,6 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-require '../User.php';
 
 class UserTest extends TestCase
 {
@@ -21,7 +20,6 @@ class UserTest extends TestCase
             ->setPrenom('Tanguy')
             ->setEmail('tanguycrepy@gmail.com')
             ->setAge(22)
-            ->setUserType(1)
             ->setSchoolName('ESGI')
             ->setPromotion('4IW3');
 
@@ -33,7 +31,6 @@ class UserTest extends TestCase
             ->setPrenom('Tanguy')
             ->setEmail('tanguycrepy@gmail.com')
             ->setAge(22)
-            ->setUserType(1)
             ->setSchoolName('ESGI')
             ->setPromotion('4IW3');
 
@@ -44,7 +41,6 @@ class UserTest extends TestCase
         $this->user->setNom('Crepy')
             ->setPrenom('Tanguy')
             ->setAge(22)
-            ->setUserType(1)
             ->setSchoolName('ESGI')
             ->setPromotion('4IW3');
 
@@ -69,57 +65,8 @@ class UserTest extends TestCase
             ->setPrenom('Tanguy')
             ->setEmail('tanguycrepy')
             ->setAge(22)
-            ->setUserType(1)
             ->setSchoolName('ESGI')
             ->setPromotion('4IW3');
-    }
-
-    public function testInvalidUserType()
-    {
-        $this->user->setNom('Crepy')
-            ->setPrenom('Tanguy')
-            ->setAge(22)
-            ->setUserType(0)
-            ->setSchoolName('ESGI')
-            ->setPromotion('4IW3');
-        $this->assertEquals(false, $this->user->userTypeisValid());
-
-        $this->user->setNom('Crepy')
-            ->setPrenom('Tanguy')
-            ->setAge(22)
-            ->setUserType(-1)
-            ->setSchoolName('ESGI')
-            ->setPromotion('4IW3');
-        $this->assertEquals(false, $this->user->userTypeisValid());
-    }
-
-    public function testEmptyUserType()
-    {
-        $this->user->setNom('Crepy')
-            ->setPrenom('Tanguy')
-            ->setAge(22)
-            ->setSchoolName('ESGI')
-            ->setPromotion('4IW3');
-
-        $this->assertEquals(false, $this->user->isValid());
-    }
-
-    public function testValidUserType(){
-        $this->user->setNom('Crepy')
-            ->setPrenom('Tanguy')
-            ->setAge(22)
-            ->setUserType(1)
-            ->setSchoolName('ESGI')
-            ->setPromotion('4IW3');
-        $this->assertEquals(true, $this->user->userTypeisValid());
-
-        $this->user->setNom('Crepy')
-            ->setPrenom('Tanguy')
-            ->setAge(22)
-            ->setUserType(2)
-            ->setSchoolName('ESGI')
-            ->setPromotion('4IW3');
-        $this->assertEquals(true, $this->user->userTypeisValid());
     }
 
     public function testEmptySchoolName()
@@ -128,7 +75,6 @@ class UserTest extends TestCase
             ->setPrenom('Tanguy')
             ->setEmail('tanguycrepy@gmail.com')
             ->setAge(22)
-            ->setUserType(1)
             ->setPromotion('4IW3');
 
         $this->assertEquals(false, $this->user->isValid());
@@ -140,9 +86,46 @@ class UserTest extends TestCase
             ->setPrenom('Tanguy')
             ->setEmail('tanguycrepy@gmail.com')
             ->setAge(22)
-            ->setUserType(1)
             ->setSchoolName('ESGI');
 
         $this->assertEquals(false, $this->user->isValid());
+    }
+
+    public function testPromotionIsNotValidBecauseOfTeacher()
+    {
+        $this->user->setNom('Crepy')
+            ->setPrenom('Tanguy')
+            ->setEmail('tanguycrepy@gmail.com')
+            ->setAge(22)
+            ->setIsTeacher(true)
+            ->setSchoolName('ESGI')
+            ->setPromotion('IW4');
+
+        $this->assertEquals(false, $this->user->isPromotionValidForStudent());
+    }
+
+    public function testPromotionIsNotValidBecauseOfMissingPromotion()
+    {
+        $this->user->setNom('Crepy')
+            ->setPrenom('Tanguy')
+            ->setEmail('tanguycrepy@gmail.com')
+            ->setAge(22)
+            ->setIsTeacher(false)
+            ->setSchoolName('ESGI');
+
+        $this->assertEquals(false, $this->user->isPromotionValidForStudent());
+    }
+
+    public function testPromotionIsValidForStudent()
+    {
+        $this->user->setNom('Crepy')
+            ->setPrenom('Tanguy')
+            ->setEmail('tanguycrepy@gmail.com')
+            ->setAge(22)
+            ->setIsTeacher(false)
+            ->setSchoolName('ESGI')
+            ->setPromotion('IW34');
+
+        $this->assertEquals(true, $this->user->isPromotionValidForStudent());
     }
 }
