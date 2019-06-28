@@ -6,6 +6,8 @@ class User
     protected $nom = "";
     protected $prenom = "";
     protected $userType = 0;
+    protected $shoolName = "";
+    protected $promotion = "";
 
     const USER_TYPE_TEACHER = 1;
     const USER_TYPE_STUDENT = 2;
@@ -88,16 +90,49 @@ class User
         return $this->userType = $userType;
     }
 
+    public function getSchoolName(): string
+    {
+        return $this->shoolName;
+    }
+
+    public function setSchoolName(string $schoolName): string
+    {
+        return $this->schoolName = $schoolName;
+    }
+
+    public function getPromotion(): string
+    {
+        return $this->promotion;
+    }
+
+    public function setPromotion(string $promotion): string
+    {
+        return $this->promotion = $promotion;
+    }
+
     public function isValid()
     {
-        return !($this->isEmpty($this->getNom()) || $this->isEmpty($this->getPrenom()) || $this->isEmpty($this->getEmail()) || $this->isEmpty($this->getAge() || !$this->userTypeisValid()));
+        return !(
+            $this->isEmpty($this->getNom()) ||
+            $this->isEmpty($this->getPrenom()) ||
+            $this->isEmpty($this->getEmail()) ||
+            $this->isEmpty($this->getAge()) ||
+            $this->isEmpty($this->userTypeisValid()) ||
+            $this->isEmpty($this->getSchoolName()) ||
+            $this->isEmpty($this->getPromotion()
+        ));
+    }
+
+    protected function isEmpty($data) {
+        return $data === null || $data === '';
     }
 
     public function userTypeisValid(){
         return ($this->getUserType() == self::USER_TYPE_TEACHER || $this->getUserType() == self::USER_TYPE_STUDENT);
     }
 
-    protected function isEmpty($data) {
-        return $data === null || $data === '';
+    public function promotionIsValidForStudent()
+    {
+        return ($this->userTypeisValid() && $this->getUserType() == self::USER_TYPE_STUDENT);
     }
 }
