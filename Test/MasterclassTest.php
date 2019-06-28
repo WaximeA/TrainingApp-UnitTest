@@ -37,4 +37,11 @@ class MasterclassTest extends TestCase
     {
         $this->assertEquals(true, $this->masterclass->isValid());
     }
+
+    public function testisNotValidDateBecauseOfStartDateInPast(): void
+    {
+        $this->masterclass->setStartDate(new DateTime('01-01-1999'));
+        $result = $this->masterclass->isValidDate();
+        $this->assertFalse($result);
+    }
 }
