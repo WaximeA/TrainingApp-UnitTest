@@ -8,7 +8,8 @@ class Masterclass
     private $teacher = null;
     private $students = [];
     private $place = '';
-    private $date = null;
+    private $startDate = null;
+    private $endDate = null;
 
     /**
      * Masterclass constructor
@@ -172,26 +173,68 @@ class Masterclass
     }
 
     /**
-     * Description getDate function
+     * Description getStartDate function
      *
-     * @return null
+     * @return DateTime
      */
-    public function getDate()
+    public function getStartDate(): DateTime
     {
-        return $this->date;
+        return $this->startDate;
     }
 
     /**
-     * @param DateTime $date
+     * Description setStartDate function
      *
-     * @return Masterclass
+     * @param DateTime $startDate
+     *
+     * @return $this
      */
-    public function setDate(DateTime $date)
+    public function setStartDate(DateTime $startDate): Masterclass
     {
-        $this->date = $date;
+        $this->startDate = $startDate;
 
         return $this;
     }
 
+    /**
+     * Description getEndDate function
+     *
+     * @return DateTime
+     */
+    public function getEndDate(): DateTime
+    {
+        return $this->endDate;
+    }
 
+    /**
+     * Description setEndDate function
+     *
+     * @param DateTime $endDate
+     *
+     * @return $this
+     */
+    public function setEndDate(DateTime $endDate): Masterclass
+    {
+        $this->endDate = $endDate;
+
+        return $this;
+    }
+
+    public function isValidDate() :bool
+    {
+        /** @var DateTime $now */
+        $now = new DateTime();
+        /** @var int $nowTimestamp */
+        $nowTimestamp = $now->getTimestamp();
+        /** @var int $endDateTimestamp */
+        $endDateTimestamp = $this->endDate->getTimestamp();
+        /** @var int $startDateTimestamp */
+        $startDateTimestamp = $this->startDate->getTimestamp();
+
+        if ($endDateTimestamp - $startDateTimestamp <= 0 || $this->startDate->getTimestamp() < $nowTimestamp){
+            return false;
+        }
+
+        return true;
+    }
 }
