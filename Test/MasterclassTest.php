@@ -61,4 +61,22 @@ class MasterclassTest extends TestCase
         $result = $this->masterclass->isValidCapacity();
         $this->assertFalse($result);
     }
+
+    public function testIfMockedUserIsValid(): void
+    {
+        $this->assertTrue($this->user->isValid());
+    }
+
+    public function testJoinMasterclassSuccess(): void
+    {
+        $result = $this->masterclass->joinMasterclass($this->user);
+        $this->assertInstanceOf(Masterclass::class, $result);
+    }
+
+    public function testJoinMasterclassFailBecauseOfWrongStudent(): void
+    {
+        $this->user->setAge(12);
+        $result = $this->masterclass->joinMasterclass($this->user);
+        $this->assertInstanceOf(Masterclass::class, $result);
+    }
 }

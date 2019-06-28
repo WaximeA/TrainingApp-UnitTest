@@ -258,4 +258,16 @@ class Masterclass
 
         return true;
     }
+
+    public function joinMasterclass(User $student) :Masterclass
+    {
+        if (!$student->isValid()) {
+            throw new Exception('The student is not valid');
+        }
+
+        $students = $this->getStudents();
+        $students[] = $student;
+
+        return $this;
+    }
 }
