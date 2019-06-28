@@ -4,7 +4,9 @@ use PHPUnit\Framework\TestCase;
 
 class MasterclassTest extends TestCase
 {
+    /** @var Masterclass $masterclass */
     protected $masterclass;
+    /** @var User $user */
     private $user;
 
     protected function setUp(): void
