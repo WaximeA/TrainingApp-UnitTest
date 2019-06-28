@@ -259,10 +259,21 @@ class Masterclass
         return true;
     }
 
-    public function joinMasterclass(User $student) :Masterclass
+    /**
+     * Description joinMasterclass function
+     *
+     * @param User $student
+     *
+     * @return string|Masterclass
+     */
+    public function joinMasterclass(User $student)
     {
         if (!$student->isValid()) {
-            throw new Exception('The student is not valid');
+            return 'The student is not valid.';
+        }
+
+        if ($student->isTeacher()) {
+            return 'You cannot join the master class as a teacher.';
         }
 
         $students = $this->getStudents();

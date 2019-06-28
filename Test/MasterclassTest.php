@@ -75,8 +75,20 @@ class MasterclassTest extends TestCase
 
     public function testJoinMasterclassFailBecauseOfWrongStudent(): void
     {
-        $this->user->setAge(12);
-        $result = $this->masterclass->joinMasterclass($this->user);
-        $this->assertInstanceOf(Masterclass::class, $result);
+        $mockedStudent = $this->createMock(User::class);
+        $mockedStudent->expects($this->any())->method('isValid')->will($this->returnValue(false));
+
+        $result = $this->masterclass->joinMasterclass($mockedStudent);
+        $this->assertSame('The student is not valid.', $result);
+    }
+
+    public function testJoinMasterclassFailBecauseOfIsTeacher(): void
+    {
+        $mockedTeacher = $this->createMock(User::class);
+        $mockedTeacher->expects($this->any())->method('isValid')->will($this->returnValue(true));
+        $mockedTeacher->expects($this->any())->method('isTeacher')->will($this->returnValue(true));
+
+        $result = $this->masterclass->joinMasterclass($mockedTeacher);
+        $this->assertSame('You cannot join the master class as a teacher.', $result);
     }
 }
