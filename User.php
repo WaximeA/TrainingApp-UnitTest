@@ -5,6 +5,10 @@ class User
     protected $email = "";
     protected $nom = "";
     protected $prenom = "";
+    protected $userType = 0;
+
+    const USER_TYPE_TEACHER = 1;
+    const USER_TYPE_STUDENT = 2;
 
     /**
      * @return string
@@ -66,9 +70,31 @@ class User
         return $this;
     }
 
+    public function getAge(){
+        return $this->age;
+    }
+
+    public function setAge($age){
+        return $this->age = $age;
+    }
+
+    public function getUserType(): int
+    {
+        return $this->userType;
+    }
+
+    public function setUserType(int $userType): int
+    {
+        return $this->userType = $userType;
+    }
+
     public function isValid()
     {
-        return !($this->isEmpty($this->getNom()) || $this->isEmpty($this->getPrenom()) || $this->isEmpty($this->getEmail()) || $this->isEmpty($this->getAge()));
+        return !($this->isEmpty($this->getNom()) || $this->isEmpty($this->getPrenom()) || $this->isEmpty($this->getEmail()) || $this->isEmpty($this->getAge() || !$this->userTypeisValid()));
+    }
+
+    public function userTypeisValid(){
+        return ($this->getUserType() == self::USER_TYPE_TEACHER || $this->getUserType() == self::USER_TYPE_STUDENT);
     }
 
     protected function isEmpty($data) {

@@ -1,6 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
+require '../User.php';
 
 class UserTest extends TestCase
 {
@@ -59,5 +60,22 @@ class UserTest extends TestCase
             ->setPrenom('Tanguy')
             ->setEmail('tanguycrepy')
             ->setAge(22);
+    }
+
+    public function testInvalidUserType()
+    {
+        $this->user->setUserType(0);
+        $this->assertEquals(false, $this->user->userTypeisValid());
+
+        $this->user->setUserType(-1);
+        $this->assertEquals(false, $this->user->userTypeisValid());
+    }
+
+    public function testValidUserType(){
+        $this->user->setUserType(1);
+        $this->assertEquals(true, $this->user->userTypeisValid());
+
+        $this->user->setUserType(2);
+        $this->assertEquals(true, $this->user->userTypeisValid());
     }
 }
