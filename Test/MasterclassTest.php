@@ -54,4 +54,11 @@ class MasterclassTest extends TestCase
         $result = $this->masterclass->isValidDate();
         $this->assertFalse($result);
     }
+
+    public function testIsNotValidBecauseOfWrongCapacity(): void
+    {
+        $this->masterclass->setCapacity(0);
+        $result = $this->masterclass->isValidCapacity();
+        $this->assertFalse($result);
+    }
 }
