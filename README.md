@@ -1,4 +1,4 @@
-# Trainingapp-Unittest
+# TrainingApp-UnitTest
 
 ## Lunch tests
 
