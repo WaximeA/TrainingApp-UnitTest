@@ -1,0 +1,13 @@
+{
+    "name": "waxime/trainingapp-unittest",
+    "authors": [
+        {
+            "name": "waxime",
+            "email": "aveline.maxime@gmail.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "^8"
+    }
+}
