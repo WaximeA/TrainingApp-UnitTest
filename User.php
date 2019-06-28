@@ -5,6 +5,7 @@ class User
     protected $email = "";
     protected $nom = "";
     protected $prenom = "";
+    protected $age = 0;
 
     /**
      * @return string
@@ -62,6 +63,28 @@ class User
     public function setPrenom(string $prenom): User
     {
         $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAge(): int
+    {
+        return $this->age;
+    }
+
+    /**
+     * @param int $age
+     * @return User
+     */
+    public function setAge(int $age): User
+    {
+        if ($age < 13) {
+            throw new InvalidArgumentException('L\'age doit être supérieur à 13 ans');
+        }
+        $this->age = $age;
 
         return $this;
     }
