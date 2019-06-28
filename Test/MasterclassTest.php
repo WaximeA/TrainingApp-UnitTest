@@ -46,4 +46,12 @@ class MasterclassTest extends TestCase
         $result = $this->masterclass->isValidDate();
         $this->assertFalse($result);
     }
+
+    public function testisNotValidDateBecauseOfInversedDates(): void
+    {
+        $this->masterclass->setStartDate(new DateTime('now + 1 day'));
+        $this->masterclass->setEndDate(new DateTime('01-01-1999'));
+        $result = $this->masterclass->isValidDate();
+        $this->assertFalse($result);
+    }
 }
