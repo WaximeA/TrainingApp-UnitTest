@@ -5,6 +5,7 @@ class User
     protected $email = "";
     protected $nom = "";
     protected $prenom = "";
+    protected $age = 0;
     protected $userType = 0;
     protected $shoolName = "";
     protected $promotion = "";
@@ -71,13 +72,27 @@ class User
 
         return $this;
     }
-
-    public function getAge(){
+  
+    /**
+     * @return int
+     */
+    public function getAge(): int
+    {
         return $this->age;
     }
 
-    public function setAge($age){
-        return $this->age = $age;
+    /**
+     * @param int $age
+     * @return User
+     */
+    public function setAge(int $age): User
+    {
+        if ($age < 13) {
+            throw new InvalidArgumentException('L\'age doit être supérieur à 13 ans');
+        }
+        $this->age = $age;
+
+        return $this;
     }
 
     public function getUserType(): int
