@@ -6,12 +6,9 @@ class User
     protected $nom = "";
     protected $prenom = "";
     protected $age = 0;
-    protected $userType = 0;
-    protected $shoolName = "";
+    protected $isTeacher = false;
+    protected $schoolName = "";
     protected $promotion = "";
-
-    const USER_TYPE_TEACHER = 1;
-    const USER_TYPE_STUDENT = 2;
 
     /**
      * @return string
@@ -95,24 +92,28 @@ class User
         return $this;
     }
 
-    public function getUserType(): int
+    public function isTeacher(): bool
     {
-        return $this->userType;
+        return $this->isTeacher;
     }
 
-    public function setUserType(int $userType): int
+    public function setIsTeacher(bool $isTeacher): User
     {
-        return $this->userType = $userType;
+        $this->isTeacher = $isTeacher;
+
+        return $this;
     }
 
     public function getSchoolName(): string
     {
-        return $this->shoolName;
+        return $this->schoolName;
     }
 
-    public function setSchoolName(string $schoolName): string
+    public function setSchoolName(string $schoolName): User
     {
-        return $this->schoolName = $schoolName;
+        $this->schoolName = $schoolName;
+
+        return $this;
     }
 
     public function getPromotion(): string
@@ -120,9 +121,11 @@ class User
         return $this->promotion;
     }
 
-    public function setPromotion(string $promotion): string
+    public function setPromotion(string $promotion): User
     {
-        return $this->promotion = $promotion;
+        $this->promotion = $promotion;
+
+        return $this;
     }
 
     public function isValid()
@@ -132,7 +135,6 @@ class User
             $this->isEmpty($this->getPrenom()) ||
             $this->isEmpty($this->getEmail()) ||
             $this->isEmpty($this->getAge()) ||
-            $this->isEmpty($this->userTypeisValid()) ||
             $this->isEmpty($this->getSchoolName()) ||
             $this->isEmpty($this->getPromotion()
         ));
@@ -142,12 +144,12 @@ class User
         return $data === null || $data === '';
     }
 
-    public function userTypeisValid(){
-        return ($this->getUserType() == self::USER_TYPE_TEACHER || $this->getUserType() == self::USER_TYPE_STUDENT);
-    }
-
-    public function promotionIsValidForStudent()
+    public function isPromotionValidForStudent()
     {
-        return ($this->userTypeisValid() && $this->getUserType() == self::USER_TYPE_STUDENT);
+        if (!$this->getPromotion() || $this->isTeacher) {
+            return false;
+        }
+
+        return true;
     }
 }
