@@ -240,4 +240,22 @@ class Masterclass
 
         return true;
     }
+
+    public function isValidCapacity(): bool
+    {
+        if (!$this->capacity || $this->capacity <= 0) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function isValid(): bool
+    {
+        if (!$this->name || !$this->description || !$this->isValidCapacity() || !$this->teacher || !$this->place || !$this->isValidDate())  {
+            return false;
+        }
+
+        return true;
+    }
 }
