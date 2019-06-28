@@ -1,4 +1,9 @@
 {
+    "autoload": {
+        "classmap": [
+            "./"
+        ]
+    },
     "name": "waxime/trainingapp-unittest",
     "authors": [
         {
