@@ -20,7 +20,8 @@ class Masterclass
      * @param User   $teacher
      * @param array  $students
      * @param string $place
-     * @param DateTime   $date
+     * @param DateTime $startDate
+     * @param DateTime $endDate
      */
     public function __construct(
         string $name,
@@ -29,7 +30,8 @@ class Masterclass
         User $teacher,
         array $students,
         string $place,
-        DateTime $date
+        DateTime $startDate,
+        DateTime $endDate
     ) {
         $this->name        = $name;
         $this->description = $description;
@@ -37,7 +39,8 @@ class Masterclass
         $this->teacher     = $teacher;
         $this->students    = $students;
         $this->place       = $place;
-        $this->date        = $date;
+        $this->startDate   = $startDate;
+        $this->endDate     = $endDate;
     }
 
     /**
